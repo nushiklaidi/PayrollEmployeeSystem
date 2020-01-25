@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem", "PayrollEmployeeSystem.csproj", "{5B3C9A60-D336-4B03-8D91-58EEDB36E0D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem.Services", "..\PayrollEmployeeSystem.Services\PayrollEmployeeSystem.Services.csproj", "{D5476659-28B6-4501-A918-0862CD2E35E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem.Data", "..\PayrollEmployeeSystem.Data\PayrollEmployeeSystem.Data.csproj", "{5B3754DB-B43D-4315-B087-EB757EC38ECD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem.Entity", "..\PayrollEmployeeSystem.Entity\PayrollEmployeeSystem.Entity.csproj", "{C486C6C1-648B-40FC-9943-AE178859965C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B3C9A60-D336-4B03-8D91-58EEDB36E0D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B3C9A60-D336-4B03-8D91-58EEDB36E0D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B3C9A60-D336-4B03-8D91-58EEDB36E0D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B3C9A60-D336-4B03-8D91-58EEDB36E0D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5476659-28B6-4501-A918-0862CD2E35E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5476659-28B6-4501-A918-0862CD2E35E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5476659-28B6-4501-A918-0862CD2E35E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5476659-28B6-4501-A918-0862CD2E35E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B3754DB-B43D-4315-B087-EB757EC38ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B3754DB-B43D-4315-B087-EB757EC38ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B3754DB-B43D-4315-B087-EB757EC38ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B3754DB-B43D-4315-B087-EB757EC38ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C486C6C1-648B-40FC-9943-AE178859965C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C486C6C1-648B-40FC-9943-AE178859965C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C486C6C1-648B-40FC-9943-AE178859965C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C486C6C1-648B-40FC-9943-AE178859965C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1936AE41-47DB-4CCC-86E3-5D9B11C6D180}
+	EndGlobalSection
+EndGlobal
