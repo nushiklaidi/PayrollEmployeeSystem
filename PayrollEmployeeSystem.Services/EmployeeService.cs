@@ -2,6 +2,7 @@
 using PayrollEmployeeSystem.Entity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,19 +23,34 @@ namespace PayrollEmployeeSystem.Services
             await _context.SaveChangesAsync();
         }
 
-        public Task Delete(int employeeId)
+        public async Task Delete(int employeeId)
         {
-            throw new NotImplementedException();
+            var employee = GetById(employeeId);
+            _context.Remove(employee);
+            await _context.SaveChangesAsync();
         }
 
         public IEnumerable<Employee> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Employees;
         }
 
         public Employee GetById(int employeeId)
         {
-            throw new NotImplementedException();
+            return _context.Employees.Where(e => e.Id == employeeId).FirstOrDefault();
+        }
+            
+        public async Task UpdateAsync(Employee employee)
+        {
+            _context.Update(employee);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(int employeeId)
+        {
+            var employee = GetById(employeeId);
+            _context.Update(employee);
+            await _context.SaveChangesAsync();
         }
 
         public decimal StudentLoanRepaymentAmount(int id, decimal totalAmount)
@@ -43,16 +59,6 @@ namespace PayrollEmployeeSystem.Services
         }
 
         public decimal UnionFees(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Employee employee)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(int employeeId)
         {
             throw new NotImplementedException();
         }
