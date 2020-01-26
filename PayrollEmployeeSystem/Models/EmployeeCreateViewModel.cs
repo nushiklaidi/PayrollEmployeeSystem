@@ -33,7 +33,7 @@ namespace PayrollEmployeeSystem.Models
         [DataType(DataType.Date), Display(Name = "Date Of Birth")]
         public DateTime DOB { get; set; }
         [DataType(DataType.Date), Display(Name = "Date Joined")]
-        public DateTime DateJoined { get; set; }
+        public DateTime DateJoined { get; set; } = DateTime.UtcNow;
         [Required(ErrorMessage = "Job Role is Required")]
         public string Designation { get; set; }
         [DataType(DataType.EmailAddress)]
