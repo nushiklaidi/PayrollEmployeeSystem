@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem", "PayrollEmployeeSystem.csproj", "{5B3C9A60-D336-4B03-8D91-58EEDB36E0D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollEmployeeSystem", "PayrollEmployeeSystem.csproj", "{5B3C9A60-D336-4B03-8D91-58EEDB36E0D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem.Services", "..\PayrollEmployeeSystem.Services\PayrollEmployeeSystem.Services.csproj", "{D5476659-28B6-4501-A918-0862CD2E35E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollEmployeeSystem.Services", "..\PayrollEmployeeSystem.Services\PayrollEmployeeSystem.Services.csproj", "{D5476659-28B6-4501-A918-0862CD2E35E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem.Data", "..\PayrollEmployeeSystem.Data\PayrollEmployeeSystem.Data.csproj", "{5B3754DB-B43D-4315-B087-EB757EC38ECD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollEmployeeSystem.Data", "..\PayrollEmployeeSystem.Data\PayrollEmployeeSystem.Data.csproj", "{5B3754DB-B43D-4315-B087-EB757EC38ECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem.Entity", "..\PayrollEmployeeSystem.Entity\PayrollEmployeeSystem.Entity.csproj", "{C486C6C1-648B-40FC-9943-AE178859965C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollEmployeeSystem.Entity", "..\PayrollEmployeeSystem.Entity\PayrollEmployeeSystem.Entity.csproj", "{C486C6C1-648B-40FC-9943-AE178859965C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem.ViewModel", "..\ViewModel\PayrollEmployeeSystem.ViewModel.csproj", "{2819A6D8-45B1-41F6-8BC4-9D61C6173F84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C486C6C1-648B-40FC-9943-AE178859965C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C486C6C1-648B-40FC-9943-AE178859965C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C486C6C1-648B-40FC-9943-AE178859965C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2819A6D8-45B1-41F6-8BC4-9D61C6173F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2819A6D8-45B1-41F6-8BC4-9D61C6173F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2819A6D8-45B1-41F6-8BC4-9D61C6173F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2819A6D8-45B1-41F6-8BC4-9D61C6173F84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

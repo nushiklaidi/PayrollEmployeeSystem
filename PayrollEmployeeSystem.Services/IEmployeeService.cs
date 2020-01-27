@@ -1,4 +1,5 @@
 ﻿using PayrollEmployeeSystem.Entity;
+using PayrollEmployeeSystem.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,5 +17,6 @@ namespace PayrollEmployeeSystem.Services
         decimal UnionFees(int id);
         decimal StudentLoanRepaymentAmount(int id, decimal totalAmount);
         IEnumerable<Employee> GetAll();
+        Task UploadImg(TestViewModel model);
     }
 }

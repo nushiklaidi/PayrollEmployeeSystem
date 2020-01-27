@@ -1,5 +1,6 @@
 ﻿using PayrollEmployeeSystem.Data;
 using PayrollEmployeeSystem.Entity;
+using PayrollEmployeeSystem.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,6 +60,11 @@ namespace PayrollEmployeeSystem.Services
         }
 
         public decimal UnionFees(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UploadImg(TestViewModel model)
         {
             throw new NotImplementedException();
         }
