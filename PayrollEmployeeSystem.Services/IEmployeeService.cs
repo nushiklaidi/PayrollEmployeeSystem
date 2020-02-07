@@ -18,6 +18,7 @@ namespace PayrollEmployeeSystem.Services
         decimal UnionFees(int id);
         decimal StudentLoanRepaymentAmount(int id, decimal totalAmount);
         IEnumerable<Employee> GetAll();
-        Task UploadImg(EmployeeCreateVM model, string webrootPath, Employee employee);
+        Task CreateUploadImg(EmployeeCreateVM model, string webrootPath, Employee employee);
+        Task EditUploadImg(EmployeeEditVM model, string webrootPath, Employee employee);
     }
 }

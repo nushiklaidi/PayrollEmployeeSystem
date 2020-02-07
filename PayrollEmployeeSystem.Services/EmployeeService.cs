@@ -66,7 +66,7 @@ namespace PayrollEmployeeSystem.Services
             throw new NotImplementedException();
         }
 
-        public async Task UploadImg(EmployeeCreateVM model, string webrootPath, Employee employee)
+        public async Task CreateUploadImg(EmployeeCreateVM model, string webrootPath, Employee employee)
         {
             var uploadDir = @"images/employee";
             var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
@@ -77,5 +77,18 @@ namespace PayrollEmployeeSystem.Services
             await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
             employee.ImageUrl = "/" + uploadDir + "/" + fileName;
         }
+
+        public async Task EditUploadImg(EmployeeEditVM model, string webrootPath, Employee employee)
+        {
+            var uploadDir = @"images/employee";
+            var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
+            var extenstion = Path.GetExtension(model.ImageUrl.FileName);
+            var webRootPath = webrootPath;
+            fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extenstion;
+            var path = Path.Combine(webRootPath, uploadDir, fileName);
+            await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
+            employee.ImageUrl = "/" + uploadDir + "/" + fileName;
+        }
+
     }
 }

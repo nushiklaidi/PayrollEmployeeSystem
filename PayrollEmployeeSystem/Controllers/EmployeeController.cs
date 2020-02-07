@@ -25,7 +25,7 @@ namespace PayrollEmployeeSystem.Controllers
         public IActionResult Index()
         {
             var employees = _employeeService.GetAll()
-                .Select(employee => new EmployeeIndexViewModel
+                .Select(employee => new EmployeeIndexVM
                 { 
                     Id = employee.Id,
                     EmployeeNo = employee.EmployeeNo,
@@ -77,7 +77,7 @@ namespace PayrollEmployeeSystem.Controllers
                 if (model.ImageUrl != null && model.ImageUrl.Length > 0)
                 {
                     var webRootPath = _hostingEnvironment.WebRootPath;
-                    await _employeeService.UploadImg(model, webRootPath, employee);
+                    await _employeeService.CreateUploadImg(model, webRootPath, employee);
 
                     //var uploadDir = @"images/employee";
                     //var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
@@ -102,7 +102,7 @@ namespace PayrollEmployeeSystem.Controllers
             {
                 return NotFound();
             }
-            var model = new EmployeeEditViewModel()
+            var model = new EmployeeEditVM()
             {
                 Id = employee.Id,
                 EmployeeNo = employee.EmployeeNo,
@@ -127,7 +127,7 @@ namespace PayrollEmployeeSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EmployeeEditViewModel model)
+        public async Task<IActionResult> Edit(EmployeeEditVM model)
         {
             if (ModelState.IsValid)
             {
@@ -154,14 +154,17 @@ namespace PayrollEmployeeSystem.Controllers
                 employee.PostCode = model.PostCode;
                 if (model.ImageUrl != null && model.ImageUrl.Length > 0)
                 {
-                    var uploadDir = @"images/employee";
-                    var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
-                    var extenstion = Path.GetExtension(model.ImageUrl.FileName);
                     var webRootPath = _hostingEnvironment.WebRootPath;
-                    fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extenstion;
-                    var path = Path.Combine(webRootPath, uploadDir, fileName);
-                    await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
-                    employee.ImageUrl = "/" + uploadDir + "/" + fileName;
+                    await _employeeService.EditUploadImg(model, webRootPath, employee);
+
+                    //var uploadDir = @"images/employee";
+                    //var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
+                    //var extenstion = Path.GetExtension(model.ImageUrl.FileName);
+                    //var webRootPath = _hostingEnvironment.WebRootPath;
+                    //fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extenstion;
+                    //var path = Path.Combine(webRootPath, uploadDir, fileName);
+                    //await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
+                    //employee.ImageUrl = "/" + uploadDir + "/" + fileName;
                 }
                 await _employeeService.UpdateAsync(employee);
                 return RedirectToAction(nameof(Index));
@@ -177,7 +180,7 @@ namespace PayrollEmployeeSystem.Controllers
             {
                 return NotFound();
             }
-            EmployeeDetailViewModel model = new EmployeeDetailViewModel()
+            EmployeeDetailVM model = new EmployeeDetailVM()
             {
                 Id = employee.Id,
                 EmployeeNo = employee.EmployeeNo,
@@ -207,7 +210,7 @@ namespace PayrollEmployeeSystem.Controllers
             {
                 return NotFound();
             }
-            var model = new EmployeeDeleteViewModel()
+            var model = new EmployeeDeleteVM()
             {
                 Id = employee.Id,
                 FullName = employee.FullName
@@ -217,7 +220,7 @@ namespace PayrollEmployeeSystem.Controllers
 
         [HttpPost]
         [IgnoreAntiforgeryToken]
-        public async Task<IActionResult> Delete(EmployeeDeleteViewModel model)
+        public async Task<IActionResult> Delete(EmployeeDeleteVM model)
         {
             await _employeeService.Delete(model.Id);
             return RedirectToAction(nameof(Index));
