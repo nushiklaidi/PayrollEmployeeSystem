@@ -5,11 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 using PayrollEmployeeSystem.Entity;
 using PayrollEmployeeSystem.Models;
 using PayrollEmployeeSystem.Services;
+using PayrollEmployeeSystem.ViewModel.Employee;
 
 namespace PayrollEmployeeSystem.Controllers
 {
@@ -44,13 +43,13 @@ namespace PayrollEmployeeSystem.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var model = new EmployeeCreateViewModel();
+            var model = new EmployeeCreateVM();
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(EmployeeCreateViewModel model)
+        public async Task<IActionResult> Create(EmployeeCreateVM model)
         {
             if (ModelState.IsValid)
             {
@@ -77,14 +76,17 @@ namespace PayrollEmployeeSystem.Controllers
                 };
                 if (model.ImageUrl != null && model.ImageUrl.Length > 0)
                 {
-                    var uploadDir = @"images/employee";
-                    var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
-                    var extenstion = Path.GetExtension(model.ImageUrl.FileName);
                     var webRootPath = _hostingEnvironment.WebRootPath;
-                    fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extenstion;
-                    var path = Path.Combine(webRootPath, uploadDir, fileName);
-                    await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
-                    employee.ImageUrl = "/" + uploadDir + "/" + fileName;
+                    await _employeeService.UploadImg(model, webRootPath, employee);
+
+                    //var uploadDir = @"images/employee";
+                    //var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
+                    //var extenstion = Path.GetExtension(model.ImageUrl.FileName);
+                    //var webRootPath = _hostingEnvironment.WebRootPath;
+                    //fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extenstion;
+                    //var path = Path.Combine(webRootPath, uploadDir, fileName);
+                    //await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
+                    //employee.ImageUrl = "/" + uploadDir + "/" + fileName;
                 }
                 await _employeeService.CreateAsync(employee);
                 return RedirectToAction(nameof(Index));

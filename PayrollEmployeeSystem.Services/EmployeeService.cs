@@ -1,8 +1,10 @@
 ﻿using PayrollEmployeeSystem.Data;
 using PayrollEmployeeSystem.Entity;
 using PayrollEmployeeSystem.ViewModel;
+using PayrollEmployeeSystem.ViewModel.Employee;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,9 +66,16 @@ namespace PayrollEmployeeSystem.Services
             throw new NotImplementedException();
         }
 
-        public Task UploadImg(TestViewModel model)
+        public async Task UploadImg(EmployeeCreateVM model, string webrootPath, Employee employee)
         {
-            throw new NotImplementedException();
+            var uploadDir = @"images/employee";
+            var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
+            var extenstion = Path.GetExtension(model.ImageUrl.FileName);
+            var webRootPath = webrootPath;
+            fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extenstion;
+            var path = Path.Combine(webRootPath, uploadDir, fileName);
+            await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
+            employee.ImageUrl = "/" + uploadDir + "/" + fileName;
         }
     }
 }
