@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PayrollEmployeeSystem.Data\PayrollEmployeeSystem.Data.csproj" />
     <ProjectReference Include="..\PayrollEmployeeSystem.Entity\PayrollEmployeeSystem.Entity.csproj" />
-    <ProjectReference Include="..\ViewModel\PayrollEmployeeSystem.ViewModel.csproj" />
+    <ProjectReference Include="..\PayrollEmployeeSystem.ViewModel\PayrollEmployeeSystem.ViewModel.csproj" />
   </ItemGroup>
 
 </Project>
