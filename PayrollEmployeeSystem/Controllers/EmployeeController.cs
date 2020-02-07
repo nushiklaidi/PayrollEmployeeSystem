@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PayrollEmployeeSystem.Entity;
-using PayrollEmployeeSystem.Models;
 using PayrollEmployeeSystem.Services;
 using PayrollEmployeeSystem.ViewModel.Employee;
 
