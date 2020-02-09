@@ -14,6 +14,7 @@ namespace PayrollEmployeeSystem.Services
     public class EmployeeService : IEmployeeService
     {
         private decimal studentLoanAmount;
+        private decimal fee;
 
         private ApplicationDbContext _context;        
 
@@ -86,7 +87,16 @@ namespace PayrollEmployeeSystem.Services
 
         public decimal UnionFees(int id)
         {
-            throw new NotImplementedException();
+            var employee = GetById(id);
+            if (employee.UnionMember == UnionMember.Yes)
+            {
+                fee = 10m;
+            }
+            else
+            {
+                fee = 0m;
+            }
+            return fee;
         }
 
         public async Task CreateUploadImg(EmployeeCreateVM model, string webrootPath, Employee employee)
