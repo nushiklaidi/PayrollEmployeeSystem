@@ -146,15 +146,6 @@ namespace PayrollEmployeeSystem.Controllers
                 {
                     var webRootPath = _hostingEnvironment.WebRootPath;
                     await _employeeService.EditUploadImg(model, webRootPath, employee);
-
-                    //var uploadDir = @"images/employee";
-                    //var fileName = Path.GetFileNameWithoutExtension(model.ImageUrl.FileName);
-                    //var extenstion = Path.GetExtension(model.ImageUrl.FileName);
-                    //var webRootPath = _hostingEnvironment.WebRootPath;
-                    //fileName = DateTime.UtcNow.ToString("yymmssfff") + fileName + extenstion;
-                    //var path = Path.Combine(webRootPath, uploadDir, fileName);
-                    //await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
-                    //employee.ImageUrl = "/" + uploadDir + "/" + fileName;
                 }
                 await _employeeService.UpdateAsync(employee);
                 return RedirectToAction(nameof(Index));
