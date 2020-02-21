@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using PayrollEmployeeSystem.Data;
 using PayrollEmployeeSystem.Entity;
+using PayrollEmployeeSystem.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,89 +12,64 @@ namespace PayrollEmployeeSystem.Services
 {
     public class PayService : IPayService
     {
-        private decimal contractualEarnings;
-        private decimal overTimeHours;
-
-        private readonly ApplicationDbContext _context;
-        public PayService(ApplicationDbContext context)
+        private IPayRepository _payRepository;
+        public PayService(IPayRepository payRepository)
         {
-            _context = context;
+            _payRepository = payRepository;
         }
         public decimal ContractualEarnings(decimal contractualHours, decimal hoursWorked, decimal hourlyRate)
         {
-            if (hoursWorked < contractualHours)
-            {
-                contractualEarnings = hoursWorked * hourlyRate;
-            }
-            else
-            {
-                contractualEarnings = contractualHours * hourlyRate;
-            }
-            return contractualEarnings;
+            return _payRepository.ContractualEarnings(contractualHours, hoursWorked, hourlyRate);
         }
 
         public async Task CreateAsync(PaymentRecord paymentRecord)
         {
-            await _context.PaymentRecords.AddAsync(paymentRecord);
-            await _context.SaveChangesAsync();
+            await _payRepository.CreateAsync(paymentRecord);
         }
 
         public IEnumerable<PaymentRecord> GetAll()
         {
-            return _context.PaymentRecords.OrderBy(p => p.EmployeeId);
+            return _payRepository.GetAll();
         }
 
         public IEnumerable<SelectListItem> GetAllTaxYear()
         {
-            var allTaxYear = _context.TaxYears
-                .Select(taxYears => new SelectListItem { 
-                    Text = taxYears.YearOfTax,
-                    Value = taxYears.Id.ToString()
-                });
-            return allTaxYear;
+            return _payRepository.GetAllTaxYear();
         }
 
         public PaymentRecord GetById(int id)
         {
-            return _context.PaymentRecords.Where(p => p.Id == id).FirstOrDefault();
+            return _payRepository.GetById(id);
         }
 
         public decimal NetPay(decimal totalEarnings, decimal totalDeduction)
         {
-            return totalEarnings - totalDeduction;
+            return _payRepository.NetPay(totalEarnings, totalDeduction);
         }
 
         public decimal OvertimeEarnings(decimal overtimeRate, decimal overtimeHours)
         {
-            return overtimeHours * overtimeRate;
+            return _payRepository.OvertimeEarnings(overtimeRate, overtimeHours);
         }
 
         public decimal OverTimeHours(decimal hoursWorked, decimal contractualHours)
         {
-            if (hoursWorked < contractualHours)
-            {
-                overTimeHours = 0.00m;
-            }
-            else if (hoursWorked > contractualHours)
-            {
-                overTimeHours = hoursWorked - contractualHours;
-            }
-            return overTimeHours;
+            return _payRepository.OverTimeHours(hoursWorked, contractualHours);
         }
 
         public decimal OverTimeRate(decimal hourlyRate)
         {
-            return hourlyRate * 1.5m;
+            return _payRepository.OverTimeRate(hourlyRate);
         }
 
         public decimal TotalDeduction(decimal tax, decimal nic, decimal studentLoanRepayment, decimal unionFees)
         {
-            return tax + nic + studentLoanRepayment + unionFees;
+            return _payRepository.TotalDeduction(tax, nic, studentLoanRepayment, unionFees);
         }
 
         public decimal TotalEarings(decimal overtimeEarnings, decimal contractualEarnings)
         {
-            return overtimeEarnings + contractualEarnings;
+            return _payRepository.TotalEarings(overtimeEarnings, contractualEarnings);
         }
     }
 }
