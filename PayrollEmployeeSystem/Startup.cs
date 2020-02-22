@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PayrollEmployeeSystem.Services;
+using PayrollEmployeeSystem.Repositories;
 
 namespace PayrollEmployeeSystem
 {
@@ -37,8 +38,11 @@ namespace PayrollEmployeeSystem
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            //DI
+            //DI Services
             services.AddScoped<IEmployeeService, EmployeeService>();
+
+            //DI Repositories
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

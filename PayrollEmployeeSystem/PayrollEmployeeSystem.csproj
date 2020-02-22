@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PayrollEmployeeSystem.Data\PayrollEmployeeSystem.Data.csproj" />
+    <ProjectReference Include="..\PayrollEmployeeSystem.Repositories\PayrollEmployeeSystem.Repositories.csproj" />
     <ProjectReference Include="..\PayrollEmployeeSystem.Services\PayrollEmployeeSystem.Services.csproj" />
   </ItemGroup>
 
