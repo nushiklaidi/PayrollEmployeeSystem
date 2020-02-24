@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PayrollEmployeeSystem.Entity;
@@ -15,28 +16,34 @@ namespace PayrollEmployeeSystem.Controllers
     {
         private readonly IEmployeeService _employeeService;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        public EmployeeController(IEmployeeService employeeService, IWebHostEnvironment hostingEnvironment)
+        private readonly IMapper _mapper;
+        public EmployeeController(IEmployeeService employeeService, IWebHostEnvironment hostingEnvironment, IMapper mapper)
         {
             _employeeService = employeeService;
             _hostingEnvironment = hostingEnvironment;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
-            var employees = _employeeService.GetAll()
-                .Select(employee => new EmployeeIndexVM
-                { 
-                    Id = employee.Id,
-                    EmployeeNo = employee.EmployeeNo,
-                    ImageUrl =  employee.ImageUrl,
-                    FullName = employee.FullName,
-                    Gender = employee.Gender,
-                    Designation = employee.Designation,
-                    City = employee.City,
-                    DateJoined = employee.DateJoined
-                }).ToList();
+            //var employees = _employeeService.GetAll()
+            //    .Select(employee => new EmployeeIndexVM
+            //    { 
+            //        Id = employee.Id,
+            //        EmployeeNo = employee.EmployeeNo,
+            //        ImageUrl =  employee.ImageUrl,
+            //        FullName = employee.FullName,
+            //        Gender = employee.Gender,
+            //        Designation = employee.Designation,
+            //        City = employee.City,
+            //        DateJoined = employee.DateJoined
+            //    }).ToList();
 
-            return View(employees);
+            var employees = _employeeService.GetAll();
+
+            var employeeVM = _mapper.Map<List<EmployeeIndexVM>>(employees);
+
+            return View(employeeVM);
         }
 
         [HttpGet]

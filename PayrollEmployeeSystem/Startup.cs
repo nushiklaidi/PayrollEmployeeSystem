@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PayrollEmployeeSystem.Services;
 using PayrollEmployeeSystem.Repositories;
+using AutoMapper;
+using PayrollEmployeeSystem.Models;
 
 namespace PayrollEmployeeSystem
 {
@@ -37,12 +39,23 @@ namespace PayrollEmployeeSystem
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
-
+               
             //DI Services
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IPayService, PayService>();
 
             //DI Repositories
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IPayRepository, PayRepository>();
+
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapping());
+            });
+
+            var mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
