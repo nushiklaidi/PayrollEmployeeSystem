@@ -14,7 +14,10 @@ namespace PayrollEmployeeSystem.Models
         {
             //Employee ViewModel
             CreateMap<Employee, EmployeeIndexVM>().ReverseMap();
+            CreateMap<Employee, EmployeeCreateVM>().ReverseMap();
             CreateMap<Employee, EmployeeEditVM>().ReverseMap();
+            CreateMap<Employee, EmployeeDetailVM>().ReverseMap();
+            CreateMap<Employee, EmployeeDeleteVM>().ReverseMap();
         }        
     }
 }

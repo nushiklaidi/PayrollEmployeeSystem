@@ -1,4 +1,5 @@
-﻿using PayrollEmployeeSystem.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PayrollEmployeeSystem.Data;
 using PayrollEmployeeSystem.Entity;
 using PayrollEmployeeSystem.ViewModel.Employee;
 using System;
@@ -42,7 +43,7 @@ namespace PayrollEmployeeSystem.Repositories
 
         public Employee GetById(int employeeId)
         {
-            return _context.Employees.Where(e => e.Id == employeeId).FirstOrDefault();
+            return _context.Employees.AsNoTracking().Where(e => e.Id == employeeId).FirstOrDefault();
         }
 
         public async Task UpdateAsync(Employee employee)

@@ -26,23 +26,8 @@ namespace PayrollEmployeeSystem.Controllers
 
         public IActionResult Index()
         {
-            //var employees = _employeeService.GetAll()
-            //    .Select(employee => new EmployeeIndexVM
-            //    { 
-            //        Id = employee.Id,
-            //        EmployeeNo = employee.EmployeeNo,
-            //        ImageUrl =  employee.ImageUrl,
-            //        FullName = employee.FullName,
-            //        Gender = employee.Gender,
-            //        Designation = employee.Designation,
-            //        City = employee.City,
-            //        DateJoined = employee.DateJoined
-            //    }).ToList();
-
             var employees = _employeeService.GetAll();
-
             var employeeVM = _mapper.Map<List<EmployeeIndexVM>>(employees);
-
             return View(employeeVM);
         }
 
@@ -59,33 +44,16 @@ namespace PayrollEmployeeSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var employee = new Employee
-                {
-                    Id = model.Id,
-                    EmployeeNo = model.EmployeeNo,
-                    FirstName = model.FirstName,
-                    MiddleName = model.MiddleName,
-                    LastName = model.LastName,
-                    FullName = model.FullName,
-                    Gender = model.Gender,
-                    Email = model.Email,
-                    DOB = model.DOB,
-                    DateJoined = model.DateJoined,
-                    NationalInsuranceNo = model.NationalInsuranceNo,
-                    PaymentMethod = model.PaymentMethod,
-                    StudentLoan = model.StudentLoan,
-                    UnionMember = model.UnionMember,
-                    Address = model.Address,
-                    City = model.City,
-                    PostCode = model.PostCode,
-                    Designation = model.Designation
-                };
+                var employee = _mapper.Map<EmployeeCreateVM, Employee>(model);
+
                 if (model.ImageUrl != null && model.ImageUrl.Length > 0)
                 {
                     var webRootPath = _hostingEnvironment.WebRootPath;
                     await _employeeService.CreateUploadImg(model, webRootPath, employee);
                 }
+
                 await _employeeService.CreateAsync(employee);
+
                 return RedirectToAction(nameof(Index));
             }
             return View();
@@ -95,31 +63,15 @@ namespace PayrollEmployeeSystem.Controllers
         public IActionResult Edit(int id)
         {
             var employee = _employeeService.GetById(id);
+
             if (employee == null)
             {
                 return NotFound();
             }
-            var model = new EmployeeEditVM()
-            {
-                Id = employee.Id,
-                EmployeeNo = employee.EmployeeNo,
-                FirstName = employee.FirstName,
-                MiddleName = employee.MiddleName,
-                LastName = employee.LastName,
-                Gender = employee.Gender,
-                Email = employee.Email,
-                DOB = employee.DOB,
-                DateJoined = employee.DateJoined,
-                NationalInsuranceNo = employee.NationalInsuranceNo,
-                PaymentMethod = employee.PaymentMethod,
-                StudentLoan = employee.StudentLoan,
-                UnionMember = employee.UnionMember,
-                Address = employee.Address,
-                City = employee.City,
-                PostCode = employee.PostCode,
-                Designation = employee.Designation
-            };
-            return View(model);
+
+            var employeeVM = _mapper.Map<EmployeeEditVM>(employee);
+
+            return View(employeeVM);
         }
 
         [HttpPost]
@@ -129,32 +81,22 @@ namespace PayrollEmployeeSystem.Controllers
             if (ModelState.IsValid)
             {
                 var employee = _employeeService.GetById(model.Id);
+
                 if (employee == null)
                 {
                     return NotFound();
                 }
-                employee.EmployeeNo = model.EmployeeNo;
-                employee.FirstName = model.FirstName;
-                employee.LastName = model.LastName;
-                employee.MiddleName = model.MiddleName;
-                employee.NationalInsuranceNo = model.NationalInsuranceNo;
-                employee.Gender = model.Gender;
-                employee.Email = model.Email;
-                employee.DOB = model.DOB;
-                employee.DateJoined = model.DateJoined;
-                employee.Designation = model.Designation;
-                employee.PaymentMethod = model.PaymentMethod;
-                employee.StudentLoan = model.StudentLoan;
-                employee.UnionMember = model.UnionMember;
-                employee.Address = model.Address;
-                employee.City = model.City;
-                employee.PostCode = model.PostCode;
+
+                var editEmployee = _mapper.Map<EmployeeEditVM, Employee>(model);
+
                 if (model.ImageUrl != null && model.ImageUrl.Length > 0)
                 {
                     var webRootPath = _hostingEnvironment.WebRootPath;
                     await _employeeService.EditUploadImg(model, webRootPath, employee);
                 }
-                await _employeeService.UpdateAsync(employee);
+
+                await _employeeService.UpdateAsync(editEmployee);
+
                 return RedirectToAction(nameof(Index));
             }
             return View();
@@ -164,46 +106,30 @@ namespace PayrollEmployeeSystem.Controllers
         public IActionResult Detail(int id)
         {
             var employee = _employeeService.GetById(id);
+
             if (employee == null)
             {
                 return NotFound();
             }
-            EmployeeDetailVM model = new EmployeeDetailVM()
-            {
-                Id = employee.Id,
-                EmployeeNo = employee.EmployeeNo,
-                FullName = employee.FullName,
-                Gender = employee.Gender,
-                DOB = employee.DOB,
-                DateJoined = employee.DateJoined,
-                Designation = employee.Designation,
-                NationalInsuranceNo = employee.NationalInsuranceNo,
-                Email = employee.Email,
-                PaymentMethod = employee.PaymentMethod,
-                StudentLoan = employee.StudentLoan,
-                UnionMember = employee.UnionMember,
-                Address = employee.Address,
-                City = employee.City,
-                ImageUrl = employee.ImageUrl,
-                PostCode = employee.PostCode
-            };
-            return View(model);
+
+            var employeeVM = _mapper.Map<EmployeeDetailVM>(employee);         
+            
+            return View(employeeVM);
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
             var employee = _employeeService.GetById(id);
+
             if (employee == null)
             {
                 return NotFound();
             }
-            var model = new EmployeeDeleteVM()
-            {
-                Id = employee.Id,
-                FullName = employee.FullName
-            };
-            return View(model);
+
+            var employeeVM = _mapper.Map<EmployeeDeleteVM>(employee);
+
+            return View(employeeVM);
         }
 
         [HttpPost]
