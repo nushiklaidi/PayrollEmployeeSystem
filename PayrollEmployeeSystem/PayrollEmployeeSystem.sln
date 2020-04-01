@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollEmployeeSystem.Entit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollEmployeeSystem.ViewModel", "..\PayrollEmployeeSystem.ViewModel\PayrollEmployeeSystem.ViewModel.csproj", "{B21E7D7E-55B3-4D92-AE30-419D5B52042A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollEmployeeSystem.Repositories", "..\PayrollEmployeeSystem.Repositories\PayrollEmployeeSystem.Repositories.csproj", "{6FEB40FC-887E-4D21-8D84-81A6091FF8C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollEmployeeSystem.Repositories", "..\PayrollEmployeeSystem.Repositories\PayrollEmployeeSystem.Repositories.csproj", "{90984269-6623-422C-94A2-926458CC15A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{B21E7D7E-55B3-4D92-AE30-419D5B52042A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21E7D7E-55B3-4D92-AE30-419D5B52042A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B21E7D7E-55B3-4D92-AE30-419D5B52042A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FEB40FC-887E-4D21-8D84-81A6091FF8C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FEB40FC-887E-4D21-8D84-81A6091FF8C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FEB40FC-887E-4D21-8D84-81A6091FF8C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FEB40FC-887E-4D21-8D84-81A6091FF8C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90984269-6623-422C-94A2-926458CC15A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90984269-6623-422C-94A2-926458CC15A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90984269-6623-422C-94A2-926458CC15A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90984269-6623-422C-94A2-926458CC15A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

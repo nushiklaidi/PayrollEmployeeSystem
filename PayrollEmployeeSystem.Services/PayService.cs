@@ -42,6 +42,11 @@ namespace PayrollEmployeeSystem.Services
             return _payRepository.GetById(id);
         }
 
+        public TaxYear GetTaxYearById(int id)
+        {
+            return _payRepository.GetTaxYearById(id);
+        }
+
         public decimal NetPay(decimal totalEarnings, decimal totalDeduction)
         {
             return _payRepository.NetPay(totalEarnings, totalDeduction);

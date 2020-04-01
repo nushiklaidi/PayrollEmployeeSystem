@@ -96,5 +96,10 @@ namespace PayrollEmployeeSystem.Repositories
         {
             return overtimeEarnings + contractualEarnings;
         }
+
+        public TaxYear GetTaxYearById(int id)
+        {
+            return _context.TaxYears.Where(t => t.Id == id).FirstOrDefault();
+        }
     }
 }

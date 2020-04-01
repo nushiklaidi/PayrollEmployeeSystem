@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PayrollEmployeeSystem.ViewModel.PaymentRecord;
 
 namespace PayrollEmployeeSystem.Models
 {
@@ -18,6 +19,9 @@ namespace PayrollEmployeeSystem.Models
             CreateMap<Employee, EmployeeEditVM>().ReverseMap();
             CreateMap<Employee, EmployeeDetailVM>().ReverseMap();
             CreateMap<Employee, EmployeeDeleteVM>().ReverseMap();
+
+            //PaymentRecord ViewModel
+            CreateMap<PaymentRecord, PaymentRecordIndexVM>().ReverseMap();
         }        
     }
 }
