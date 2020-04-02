@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PayrollEmployeeSystem.Data;
 using PayrollEmployeeSystem.Entity;
 using PayrollEmployeeSystem.ViewModel.Employee;
@@ -121,6 +122,15 @@ namespace PayrollEmployeeSystem.Repositories
             var path = Path.Combine(webRootPath, uploadDir, fileName);
             await model.ImageUrl.CopyToAsync(new FileStream(path, FileMode.Create));
             employee.ImageUrl = "/" + uploadDir + "/" + fileName;
+        }
+
+        public IEnumerable<SelectListItem> GetAllEmployeesForPayroll()
+        {
+            return GetAll().Select(e => new SelectListItem()
+            {
+                Text = e.FullName,
+                Value = e.Id.ToString()
+            }); ;
         }
     }
 }

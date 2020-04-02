@@ -14,11 +14,33 @@ namespace PayrollEmployeeSystem.Controllers
     {
         private readonly IPayService _payService;
         private readonly IMapper _mapper;
+        private readonly IEmployeeService _employeeService;
+        private readonly ITaxService _taxService;
+        private readonly INationalInsuranceContributionService _nationalInsuranceContributionService;
 
-        public PayController(IPayService payService, IMapper mapper)
+        private decimal overtimeHrs;
+        private decimal contractualEarnings;
+        private decimal overtimeEarnings;
+        private decimal totalEarnings;
+        private decimal tax;
+        private decimal unionFee;
+        private decimal studentLoan;
+        private decimal nationalInsurance;
+        private decimal totalDeduction;
+
+        public PayController(
+            IPayService payService, 
+            IMapper mapper, 
+            IEmployeeService employeeService, 
+            ITaxService taxService, 
+            INationalInsuranceContributionService nationalInsuranceContributionService
+            )
         {
             _payService = payService;
             _mapper = mapper;
+            _employeeService = employeeService;
+            _taxService = taxService;
+            _nationalInsuranceContributionService = nationalInsuranceContributionService;
         }
 
         public IActionResult Index()
@@ -40,6 +62,56 @@ namespace PayrollEmployeeSystem.Controllers
                 });
 
             return View(payRecords);
+        }
+
+        public IActionResult Create()
+        {
+            ViewBag.employees = _employeeService.GetAllEmployeesForPayroll();
+            ViewBag.taxYears = _payService.GetAllTaxYear();
+            var model = new PaymentRecordCreateVM();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(PaymentRecordCreateVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var payrecord = new PaymentRecord()
+                {
+                    Id = model.Id,
+                    EmployeeId = model.EmployeeId,
+                    FullName = _employeeService.GetById(model.EmployeeId).FullName,
+                    NiNo = _employeeService.GetById(model.EmployeeId).NationalInsuranceNo,
+                    PayDate = model.PayDate,
+                    PayMonth = model.PayMonth,
+                    TaxYearId = model.TaxYearId,
+                    TaxCode = model.TaxCode,
+                    HourlyRate = model.HourlyRate,
+                    HoursWorked = model.HoursWorked,
+                    ContractualHours = model.ContractualHours,
+                    OvertimeHours = overtimeHrs = _payService.OverTimeHours(model.HoursWorked, model.ContractualHours),
+                    ContractualEarnings = contractualEarnings = _payService.ContractualEarnings(model.ContractualHours, model.HoursWorked, model.HourlyRate),
+                    OvertimeEarnings = overtimeEarnings = _payService.OvertimeEarnings(_payService.OverTimeRate(model.HourlyRate), overtimeHrs),
+                    TotalEarnings = totalEarnings = _payService.TotalEarings(overtimeEarnings, contractualEarnings),
+                    Tax = tax = _taxService.TaxAmount(totalEarnings),
+                    UnionFee = unionFee = _employeeService.UnionFees(model.EmployeeId),
+                    SLC = studentLoan = _employeeService.StudentLoanRepaymentAmount(model.EmployeeId, totalEarnings),
+                    NIC = nationalInsurance = _nationalInsuranceContributionService.NIContribution(totalEarnings),
+                    TotalDeduction = totalDeduction = _payService.TotalDeduction(tax, nationalInsurance, studentLoan, unionFee),
+                    NetPayment = _payService.NetPay(totalEarnings, totalDeduction)
+                };
+
+                await _payService.CreateAsync(payrecord);
+                return RedirectToAction(nameof(Index));
+
+            }
+
+            ViewBag.employees = _employeeService.GetAllEmployeesForPayroll();
+            ViewBag.taxYears = _payService.GetAllTaxYear();
+
+            return View();
         }
     }
 }

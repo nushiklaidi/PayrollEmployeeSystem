@@ -1,4 +1,5 @@
-﻿using PayrollEmployeeSystem.Data;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PayrollEmployeeSystem.Data;
 using PayrollEmployeeSystem.Entity;
 using PayrollEmployeeSystem.Repositories;
 using PayrollEmployeeSystem.ViewModel;
@@ -44,6 +45,11 @@ namespace PayrollEmployeeSystem.Services
         public IEnumerable<Employee> GetAll()
         {
             return _employeeRepository.GetAll();
+        }
+
+        public IEnumerable<SelectListItem> GetAllEmployeesForPayroll()
+        {
+            return _employeeRepository.GetAllEmployeesForPayroll();
         }
 
         public Employee GetById(int employeeId)

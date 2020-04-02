@@ -22,6 +22,7 @@ namespace PayrollEmployeeSystem.Models
 
             //PaymentRecord ViewModel
             CreateMap<PaymentRecord, PaymentRecordIndexVM>().ReverseMap();
+            CreateMap<PaymentRecord, PaymentRecordCreateVM>().ReverseMap();
         }        
     }
 }

@@ -1,4 +1,5 @@
-﻿using PayrollEmployeeSystem.Entity;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PayrollEmployeeSystem.Entity;
 using PayrollEmployeeSystem.ViewModel;
 using PayrollEmployeeSystem.ViewModel.Employee;
 using System;
@@ -20,5 +21,6 @@ namespace PayrollEmployeeSystem.Services
         IEnumerable<Employee> GetAll();
         Task CreateUploadImg(EmployeeCreateVM model, string webrootPath, Employee employee);
         Task EditUploadImg(EmployeeEditVM model, string webrootPath, Employee employee);
+        IEnumerable<SelectListItem> GetAllEmployeesForPayroll();
     }
 }

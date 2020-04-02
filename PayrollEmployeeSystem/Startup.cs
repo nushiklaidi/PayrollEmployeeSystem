@@ -43,6 +43,8 @@ namespace PayrollEmployeeSystem
             //DI Services
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IPayService, PayService>();
+            services.AddScoped<ITaxService, TaxService>();
+            services.AddScoped<INationalInsuranceContributionService, NationalInsuranceContributionService>();
 
             //DI Repositories
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
