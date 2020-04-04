@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using PayrollEmployeeSystem.Entity;
@@ -12,6 +13,7 @@ using PayrollEmployeeSystem.ViewModel.Employee;
 
 namespace PayrollEmployeeSystem.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService _employeeService;

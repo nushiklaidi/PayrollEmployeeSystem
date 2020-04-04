@@ -28,7 +28,7 @@ namespace PayrollEmployeeSystem.Controllers
         private decimal studentLoan;
         private decimal nationalInsurance;
         private decimal totalDeduction;
-
+               
         public PayController(
             IPayService payService, 
             IMapper mapper, 
